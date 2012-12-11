@@ -1,0 +1,38 @@
+<p><b> Personal Information </b></p>
+  <%= @customer.name %>
+
+<p><b>Address of Customer</b></p>
+<table type="table">
+  <tr>
+    <td><%= @customer.address.line1 %></td>
+    <td><%= @customer.address.line2 %></td>
+    <td><%= @customer.address.city %></td>
+    <td><%= @customer.address.state %></td>
+    <td><%= @customer.address.zip %></td>
+    <td><%= @customer.address.country %></td>
+  </tr>
+</table>
+
+<p><b>Email Ids of the customer</b></p>
+<table type="table">
+  <% @customer.emails.each do |email| %>
+    <tr>
+      <td><b><%= email.email_type %></b></td><td><%= email.address %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><b>Phone Numbers of the customer</b></p>
+<table type="table">
+  <% @customer.phone_numbers.each do |email| %>
+    <tr>
+      <td><b><%= email.phone_type %></b></td><td><%= email.phone %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><b>Special Note about <%= @customer.name %></b></p>
+<%= @customer.special_note.description || "" %><br />
+
+<%= link_to "Edit Customer", edit_customer_path(@customer) %>
+<%= link_to 'Delete Customer', @customer, :method => :delete, :confirm => "Are You Sure to delete this customer?" %>

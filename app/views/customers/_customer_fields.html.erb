@@ -1,0 +1,5 @@
+<p><b>Enter the General Information About the customer </b></p>
+  <%= f.select :salutation, Customer::SALUTATIONS, :class => "customer-fields" %>
+  <%= f.text_field :first_name, :placeholder => "First Name", :class => "customer-fields" %>
+  <%= f.text_field :middle_name, :placeholder => "Middle Name", :class => "customer-fields" %>
+  <%= f.text_field :last_name, :placeholder => "Last Name", :class => "customer-fields" %>

@@ -1,0 +1,10 @@
+<table>
+  <tr>
+    <td><%= builder.label :phone, "Phone Number" %></td>
+    <td><%= builder.text_field :phone %></td>
+    <td><%= builder.label :phone_type %></td>
+    <td><%= builder.select :phone_type, PhoneNumber::TYPE, :prompt => "Phone Type"  %></td>
+    <td><%= builder.link_to_remove "Remove" %></td>
+  </tr>
+
+</table>

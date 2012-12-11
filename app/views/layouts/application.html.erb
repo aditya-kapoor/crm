@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Customer Relationship Management</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div id="header">Welcome to CRM</div>
+  <div class = "part">
+    <% flash.each do |key, msg| %>
+      <%= content_tag :div, msg, :id => key %>
+    <% end %>
+  </div>
+  <div class="logged-in">
+    <% if session[:user_id].present? %>
+      <p> Logged in as <%= link_to current_user.username, current_user %> | <%= link_to "Logout", logout_sessions_path %></p>
+    <% end %>
+  </div>
+  <%= yield %>
+
+</body>
+</html>

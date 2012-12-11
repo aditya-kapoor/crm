@@ -1,0 +1,6 @@
+var customer_ids = []
+$('input:checkbox[name="customer_ids[]"]:checked').each(function(index, element){
+  customer_ids.push(element['value'])
+})
+
+<%= Customer.find_all_by_id(customer_ids) %>

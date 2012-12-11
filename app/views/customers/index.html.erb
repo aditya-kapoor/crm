@@ -1,0 +1,46 @@
+<div id = "search-fields">
+  <%= text_field_tag :search_term, nil, :placeholder => "Enter Search Query", :onkeyup => "get_results()" %>
+</div>
+
+<div id = "main-div">
+  <div class="pagination pagination-centered">
+    <%= paginate @customers %>
+  </div>
+  <%= link_to "New Customer", new_customer_path, :class => "btn" %>
+  <%= form_tag export_to_csv_customers_path do %>
+    <table class="table table-hover">
+      <th><%= check_box_tag :checkall %></th>
+      <th>Customer Name</th>
+      <th>Emails</th>
+      <th>Phone Numbers</th>
+      <% @customers.each do |customer| %>
+        <tr>
+          <td><%= check_box_tag 'customer_ids[]', customer.id %></td>
+          <td><%= link_to "#{customer.name}", customer %></td>
+          <td>
+            <table class="table">
+              <% customer.emails.each do |email| %>
+                <tr><td><b><%= email.email_type %></b></td><td><%= email.address %></td></tr>
+              <% end %>
+            </table>
+          </td> 
+          <td>
+            <table class="table">
+              <% customer.phone_numbers.each do |phone| %>
+                <tr><td><b><%= phone.phone_type %>:</b></td><td><%= phone.phone %> </td></tr>
+              <% end %>
+            </table>
+          </td>
+          <td>
+            <%= link_to "Edit", edit_customer_path(customer) %>
+            <%= link_to 'Delete', customer, :method => :delete, :confirm => "Are You Sure to delete this customer?" %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+    <%= submit_tag "Export to CSV", :class => "export-csv" %>
+  <% end %>
+</div>
+
+<div id="search-results">
+</div>
