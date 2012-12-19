@@ -1,0 +1,13 @@
+<td>
+  <% @hash["emails"][i].split(", ").each_with_index do |email,index| %>
+    <%= customer_fields.fields_for "emails[#{index}]" do |f| %>
+      <table>
+        <tr>
+          <td>
+            <%= f.select "email_type", Email::TYPE %>
+          </td>
+          <td><%= f.email_field "address", { :placeholder => "Enter Email", :value => email }%></td></tr>
+      </table>
+    <% end %>
+  <% end %>
+</td>

@@ -3,7 +3,7 @@
     <td><%= builder.label :address, "Email Address" %></td>
     <td><%= builder.email_field :address %></td>
     <td><%= builder.label :email_type %></td>
-    <td><%= builder.select :email_type, Email::TYPE, :prompt => "Type" %></td>
+    <td><%= builder.select :email_type, Email::TYPE %></td>
     <td><%= builder.link_to_remove "Remove" %></td>
   </tr>
 </table>

@@ -1,0 +1,19 @@
+<td>
+  <%= customer_fields.fields_for :name do |f| %>
+    <% salutation, first_name, middle_name, last_name = @hash["name"][i].split(" ") %>
+    <table>
+      <tr>
+        <td><%= f.select :salutation, Customer::SALUTATIONS, {:selected => salutation } %></td>
+      </tr>
+      <tr>
+        <td><%= f.text_field :first_name, {:placeholder => "First Name", :value => first_name} %></td>
+      </tr>
+      <tr>
+        <td><%= f.text_field :middle_name, {:placeholder => "Middle Name", :value => middle_name} %></td>
+      </tr>
+      <tr>
+        <td><%= f.text_field :last_name, { :placeholder => "Last Name", :value => last_name } %></td>
+      </tr>
+    </table>
+  <% end %>
+</td>

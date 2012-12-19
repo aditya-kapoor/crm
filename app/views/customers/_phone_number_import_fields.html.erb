@@ -1,0 +1,13 @@
+<td>
+  <% @hash["phone_numbers"][i].split(", ").each_with_index do |phone, index| %>
+    <%= customer_fields.fields_for "phone_numbers[#{index}]" do |f| %>
+      <table>
+        <tr>
+          <td>
+            <%= f.select "phone_type", PhoneNumber::TYPE %>
+          </td>
+          <td><%= f.text_field "phone",{:placeholder => "Enter Phone Number", :value => phone } %></td></tr>
+      </table>
+    <% end %>
+  <% end %>
+</td>

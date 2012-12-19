@@ -1,0 +1,15 @@
+<td>
+  <%= customer_fields.fields_for :address do |f| %>
+    <% line1, line2, city, state, zip, country = @hash["address"][i].split(", ") %>
+    <table>
+      <tr>
+        <tr><td><%= f.text_field :line1, {:placeholder => "line1", :value => line1 } %></td></tr>
+        <tr><td><%= f.text_field :line2, {:placeholder => "line2", :value => line2 } %></td></tr>
+        <tr><td><%= f.text_field :city, {:placeholder => "city", :value => city } %></td></tr>
+        <tr><td><%= f.text_field :state, {:placeholder => "state", :value => state } %></td></tr>
+        <tr><td><%= f.text_field :zip, {:placeholder => "zip", :value => zip } %></td></tr>
+        <tr><td><%= f.text_field :country, {:placeholder => "country", :value => country } %></td></tr>
+      </tr>
+    </table>
+  <% end %>
+</td>

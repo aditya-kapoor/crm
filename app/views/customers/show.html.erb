@@ -1,38 +1,46 @@
-<p><b> Personal Information </b></p>
-  <%= @customer.name %>
+<div id ="personal-info">
+  <p><b> Personal Information </b></p>
+  <table class="table">
+    <tr><td>Salutation</td><td><%= @customer.salutation %></td></tr>
+    <tr><td>First Name</td><td><%= @customer.first_name %></td></tr>
+    <tr><td>Middle Name</td><td><%= @customer.middle_name %></td></tr>
+    <tr><td>Last Name</td><td><%= @customer.last_name %></td></tr>
+  </table>  
 
-<p><b>Address of Customer</b></p>
-<table type="table">
-  <tr>
-    <td><%= @customer.address.line1 %></td>
-    <td><%= @customer.address.line2 %></td>
-    <td><%= @customer.address.city %></td>
-    <td><%= @customer.address.state %></td>
-    <td><%= @customer.address.zip %></td>
-    <td><%= @customer.address.country %></td>
-  </tr>
-</table>
 
-<p><b>Email Ids of the customer</b></p>
-<table type="table">
-  <% @customer.emails.each do |email| %>
-    <tr>
-      <td><b><%= email.email_type %></b></td><td><%= email.address %></td>
-    </tr>
-  <% end %>
-</table>
+  <p><b>Address of <%= @customer.name %></b></p>
+  <table class="table">
+    <tr><td>Line 1</td><td><%= @customer.address.line1 %></td></tr>
+    <tr><td>Line 2</td><td><%= @customer.address.line2 %></td></tr>
+    <tr><td>City</td><td><%= @customer.address.city %></td></tr>
+    <tr><td>State</td><td><%= @customer.address.state %></td></tr>
+    <tr><td>Zip Code</td><td><%= @customer.address.zip %></td></tr>
+    <tr><td>Country</td><td><%= @customer.address.country %></td></tr>
+  </table>
 
-<p><b>Phone Numbers of the customer</b></p>
-<table type="table">
-  <% @customer.phone_numbers.each do |email| %>
-    <tr>
-      <td><b><%= email.phone_type %></b></td><td><%= email.phone %></td>
-    </tr>
-  <% end %>
-</table>
+  <p><b>Email Ids of <%= @customer.name %></b></p>
+  <table class="table">
+    <% @customer.emails.each do |email| %>
+      <tr>
+        <td><b><%= email.email_type %></b></td>
+        <td><%= email.address %></td>
+      </tr>
+    <% end %>
+  </table>
 
-<p><b>Special Note about <%= @customer.name %></b></p>
-<%= @customer.special_note.description || "" %><br />
+  <p><b>Phone Numbers of <%= @customer.name %></b></p>
+  <table class="table">
+    <% @customer.phone_numbers.each do |phone| %>
+      <tr>
+        <td><b><%= phone.phone_type %></b></td>
+        <td><%= phone.phone %></td>
+      </tr>
+    <% end %>
+  </table>
 
-<%= link_to "Edit Customer", edit_customer_path(@customer) %>
-<%= link_to 'Delete Customer', @customer, :method => :delete, :confirm => "Are You Sure to delete this customer?" %>
+  <p><b>Special Note about <%= @customer.name %></b></p>
+  <%= @customer.special_note.description || "" %><br />
+
+  <%= link_to "Edit Customer", edit_customer_path(@customer) %>
+  <%= link_to 'Delete Customer', @customer, :method => :delete, :confirm => "Are You Sure to delete this customer?" %>
+</div>

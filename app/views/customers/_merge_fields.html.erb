@@ -1,0 +1,71 @@
+<table>
+  <%= f.fields_for merge_fields do |name_fields| %>
+      <tr>
+        <td><b>Personal</b></td>
+        <td><%= f.hidden_field :id %></td>
+      </tr>
+      <tr>
+        <td>
+          <%= check_box_tag "customer[name][salutation]", merge_fields.salutation %>
+        </td>
+        <td><%= name_fields.select :salutation, Customer::SALUTATIONS %></td>
+      </tr>
+      <tr>
+        <td>
+          <%= check_box_tag "customer[name][first_name]", merge_fields.first_name %>
+        </td>
+        <td><%= name_fields.text_field :first_name, :readonly => "readonly" %></td>
+      </tr>
+      <tr>
+        <td><%= check_box_tag "customer[name][middle_name]", merge_fields.middle_name %></td>
+        <td><%= name_fields.text_field :middle_name, :readonly => "readonly" %></td>
+      </tr>
+      <tr>
+        <td><%= check_box_tag "customer[name][last_name]", merge_fields.last_name %></td>
+        <td><%= name_fields.text_field :last_name, :readonly => "readonly" %></td>
+      </tr>
+    <%= name_fields.fields_for :address do |address_fields| %>
+      <tr><td><b>Address</b></td></tr>
+      <tr>
+        <td><%= check_box_tag "customer[address][line1]", address_fields.object.line1 %></td>
+        <td><%= address_fields.text_field :line1, :readonly => "readonly" %></td>
+      </tr>
+      <tr>
+        <td><%= check_box_tag "customer[address][line2]", address_fields.object.line2 %></td>
+        <td><%= address_fields.text_field :line2, :readonly => "readonly" %></td>
+      </tr>
+      <tr>
+        <td><%= check_box_tag "customer[address][city]", address_fields.object.city %></td>
+        <td><%= address_fields.text_field :city, :readonly => "readonly" %></td>
+      </tr>
+      <tr>
+        <td><%= check_box_tag "customer[address][state]", address_fields.object.state %></td>
+        <td><%= address_fields.text_field :state, :readonly => "readonly" %></td>
+      </tr>
+      <tr>
+        <td><%= check_box_tag "customer[address][zip]", address_fields.object.zip %></td>
+        <td><%= address_fields.text_field :zip, :readonly => "readonly" %></td>
+      </tr>
+      <tr>
+        <td><%= check_box_tag "customer[address][country]", address_fields.object.country %></td>
+        <td><%= address_fields.text_field :country, :readonly => "readonly" %></td>
+      </tr>
+    <% end %>
+      <tr><td><b>Emails</b></td></tr>
+    <%= name_fields.fields_for :emails do |email_fields| %>
+      <tr>
+        <td><%= check_box_tag "customer[emails][]", email_fields.object.id %></td>
+        <td><%= email_fields.text_field :email_type, :readonly => "readonly" %></td>
+        <td><%= email_fields.text_field :address, :readonly => "readonly" %></td>
+      </tr>
+    <% end %>
+      <tr><td><b>Phone</b></td></tr>
+    <%= name_fields.fields_for :phone_numbers do |phone_fields| %>
+      <tr>
+        <td><%= check_box_tag "customer[phone_numbers][]", phone_fields.object.id %></td>
+        <td><%= phone_fields.text_field :phone_type, :readonly => "readonly" %></td>
+        <td><%= phone_fields.text_field :phone, :readonly => "readonly" %></td>
+      </tr>
+    <% end %>
+  <% end %>
+</table>

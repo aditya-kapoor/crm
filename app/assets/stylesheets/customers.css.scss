@@ -3,6 +3,11 @@ div#customer-container {
   margin-top: 0px;
 }
 
+div.merge-contacts {
+  display: table-cell;
+  margin: 10px;
+}
+
 .customer-fields {
   width: 150px;
 }
@@ -15,4 +20,15 @@ div#search-fields {
 
 .pagination {
   display: block;
+}
+
+div#personal-info {
+  width: 500px;
+  margin: 0px auto;
+}
+
+div.export-button {
+  width: 700px;
+  margin: 0px auto;
+  text-align: center;
 }

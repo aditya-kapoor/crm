@@ -1,4 +1,5 @@
 $('document').ready(function(){
+
   $('#checkall').live("click", function(){
     $('input:checkbox').attr('checked', this.checked)
   })
@@ -28,10 +29,9 @@ function get_data(search_string) {
   });
 }
 
-function setSearchResults(global_data) {
-  $form = $('<form />')
-  $form.attr("action", "/customers/export_to_csv")
-  $form.attr("method", "post")
+
+function generateTableHeader(){
+  $tr = $('<tr/>')
 
   $checkall_box = $('<input />')
   $checkall_box.attr("type", "checkbox")
@@ -42,8 +42,45 @@ function setSearchResults(global_data) {
   $checkbox_header = $('<th />')
   $checkbox_header.append($checkall_box)
 
+  $name_check_box = $('<input />')
+  $name_check_box.attr("type", "checkbox")
+  $name_check_box.attr("name", "columns[]")
+  $name_check_box.attr("value", "name")
+  $name_header = $('<th />')
+  $name_header.append($name_check_box)
+  $name_header.append($('<span>Names</span>'))
+
+  $emails_check_box = $('<input />')
+  $emails_check_box.attr("type", "checkbox")
+  $emails_check_box.attr("name", "columns[]")
+  $emails_check_box.attr("value", "emails")
+  $emails_header = $('<th />')
+  $emails_header.append($emails_check_box)
+  $emails_header.append($('<span>Emails</span>'))
+
+  $phones_check_box = $('<input />')
+  $phones_check_box.attr("type", "checkbox")
+  $phones_check_box.attr("name", "columns[]")
+  $phones_check_box.attr("value", "phone_numbers")
+  $phone_header = $('<th />')
+  $phone_header.append($phones_check_box)
+  $phone_header.append($('<span>Phone Numbers</span>'))
+
+  $tr.append($checkbox_header).append($name_header).append($emails_header).append($phone_header)
+  return $tr
+}
+
+function setSearchResults(global_data) {
+  $authenticate_div = $('input[name="authenticity_token"]').parent('div')
+  $form = $('<form></form>')
+  $form.append($authenticate_div.clone())
+  $form.attr("action", "/customers/export_to_csv")
+  $form.attr("method", "post")
+
   $table = $('<table />')
-  $table.append($checkbox_header).append($('<th>Customer Name</th>')).append($('<th>Emails</th>')).append($('<th>Phone Numbers</th>'))
+  $header_row = generateTableHeader()
+  $table.append($header_row)
+  
   $table.addClass("table table-hover")
   if (search_string.length == 0) { 
     $('div#main-div').show()
@@ -105,7 +142,7 @@ function setSearchResults(global_data) {
     }
     $submit = $('<input />')
     $submit.attr("type", "submit")
-    $submit.addClass("export-csv")
+    $submit.addClass("export-csv btn btn-success btn-large")
     $submit.attr("value", "Export to CSV")
 
     $form.append($table).append($submit)

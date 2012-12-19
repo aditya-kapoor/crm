@@ -1,0 +1,15 @@
+<%= form_tag(:controller => "customers", :action => "merge_contacts") do %>
+<table class="table">
+    <tr>
+      <td>
+        <%= select_tag 'customer1', options_for_select(@customers.collect{ |u| [u.name, u.id] }), :prompt => "Select the first record" %>
+      </td>
+      <td>
+        <%= select_tag 'customer2', options_for_select(@customers.collect{ |u| [u.name, u.id] }), :prompt => "Select the second record" %>
+      </td>
+    </tr>
+    <tr><td><%= submit_tag "Start Merging Contacts", :class => "btn" %></td></tr>
+<% end %>
+
+
+</table>

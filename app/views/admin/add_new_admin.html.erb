@@ -1,0 +1,32 @@
+<% if @admin.errors.any? %>
+  <div class="error_messages">
+   <h2>There were some errors in your submission</h2
+    <ul>
+      <% @admin.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+  </div>
+<% end %>
+<%= form_for(@admin, :url => save_new_admin_admin_index_path) do |f| %>
+  <table class="table">
+    <tr>
+      <td><%= f.label :email %></td>
+      <td><%= f.email_field :email %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :username %></td>
+      <td><%= f.text_field :username %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :password %></td>
+      <td><%= f.password_field :password %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :password_confirmation %></td>
+      <td><%= f.password_field :password_confirmation %></td>
+    </tr>
+    <tr>
+      <td><%= f.submit "Sign up" %></td>
+    </tr>
+  </table>
+<% end %>

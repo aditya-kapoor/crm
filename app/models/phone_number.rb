@@ -6,7 +6,7 @@ class PhoneNumber < ActiveRecord::Base
   validates :phone, :numericality => { :only_integer => true }, :if => :phone
   validates :phone_type, :presence => { :message => "You must enter the phone type"}, :if => :phone
 
-  TYPE = { "Personal" => "Personal", "Mobile" => "Mobile", "Business" => "Business", "Fax" => "Fax"}
+  TYPE = { "Mobile" => "Mobile", "Personal" => "Personal", "Business" => "Business", "Fax" => "Fax"}
 
   # def in_india?
   #   # phone.present? and address_attributes.country == "India"

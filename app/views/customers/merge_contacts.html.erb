@@ -1,0 +1,28 @@
+<div>
+  <h3>This is to inform you that if you do not make any selections and yet select one of the two records for merging then the other record would be destroyed without any further notice.</h3>
+</div>
+
+<%= form_tag(:controller => "customers", :action => "merge_and_save_contacts") do %>
+  <div class="merge-contacts">
+    <table class="table">
+      <td>
+        <%= fields_for "customer1" do |f| %>
+          <%= render :partial => "merge_fields", :object => @customer1, :locals => { :f => f } %>
+        <% end %>
+      </td>
+      <td>
+        <%= fields_for "customer2" do |f| %>
+          <%= render :partial =>"merge_fields", :object => @customer2, :locals => { :f => f } %>
+        <% end %>
+      </td>
+      <tr>
+        <td>
+          <%= radio_button_tag "selected_record", @customer1.id, :checked => true  %>Merge selected records into customer 1
+        </td>
+        <td>
+          <%= radio_button_tag "selected_record", @customer2.id %>Merge selected records into customer 2
+        </td>
+      </tr>
+    </table>
+  <%= submit_tag "Merge Contacts", :class => "btn btn-success btn-large" %>
+<% end %>

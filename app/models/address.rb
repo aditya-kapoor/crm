@@ -5,6 +5,10 @@ class Address < ActiveRecord::Base
   after_save :set_customer_delta_flag
   after_destroy :set_customer_delta_flag
 
+  def complete_address
+    "#{line1}, #{line2}, #{city}, #{state}, #{zip}, #{country}"
+  end
+
   private
 
   def set_customer_delta_flag

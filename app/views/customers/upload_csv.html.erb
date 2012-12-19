@@ -1,0 +1,15 @@
+<h3>You can import your CSV here....</h3>
+
+<b>Before you start importing your CSV, you should specify the field names so that the importing is easier..</b>
+
+<%= form_tag({:controller => "customers", :action => "import_csv"}, :multipart => true) do %>
+  <table class="table">
+    <tr><td>Field 1</td><td><%= select_tag "fields[]", options_for_select(Customer::FIELDS), :prompt => "Select Field" %></td></tr>
+    <tr><td>Field 2</td><td><%= select_tag "fields[]", options_for_select(Customer::FIELDS), :prompt => "Select Field" %></td></tr>
+    <tr><td>Field 3</td><td><%= select_tag "fields[]", options_for_select(Customer::FIELDS), :prompt => "Select Field" %></td></tr>
+    <tr><td>Field 4</td><td><%= select_tag "fields[]", options_for_select(Customer::FIELDS), :prompt => "Select Field" %></td></tr>
+    <tr><td>Field 5</td><td><%= select_tag "fields[]", options_for_select(Customer::FIELDS), :prompt => "Select Field" %></td></tr>
+    <tr><td><%= file_field_tag :file %></td></tr>
+    <tr><td><%= submit_tag "Submit" %></td><td></td></tr>
+  </table>
+<% end %>

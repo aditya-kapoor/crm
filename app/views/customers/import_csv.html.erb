@@ -1,0 +1,28 @@
+<%#= @hash.inspect %>
+
+<%= form_tag save_csv_contents_customers_path do %>
+  <table class="table">
+    <% for i in (0...@hash.values.max.length) %>
+      <tr>
+        <%= fields_for "customers[#{i}]" do |customer_fields| %>
+          <% if @hash.keys.include?("name") %>
+            <%= render :partial => "name_import_fields", :locals => { :customer_fields => customer_fields, :i => i} %>
+          <% end %>
+          <% if @hash.keys.include?("address") %>
+            <%= render :partial => "address_import_fields", :locals => { :customer_fields => customer_fields, :i => i} %>
+          <% end %>
+          <% if @hash.keys.include?("emails") %>
+            <%= render :partial => "email_import_fields", :locals => { :customer_fields => customer_fields, :i => i } %>
+          <% end %>
+          <% if @hash.keys.include?("phone_numbers") %>
+            <%= render :partial => "phone_number_import_fields", :locals => { :customer_fields => customer_fields, :i => i} %>
+          <% end %>
+          <% if @hash.keys.include?("special_note") %>
+            <%= render :partial => "special_note_import_fields", :locals => { :customer_fields => customer_fields, :i => i} %>
+          <% end %>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+  <%= submit_tag "Commit to Database" %>
+<% end %>

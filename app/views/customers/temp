@@ -1,0 +1,99 @@
+<%= form_tag save_csv_contents_customers_path do %>
+  <table class="table">
+    <tr>
+      <th>Name</th>
+      <th>Address</th>
+      <th>Emails</th>
+      <th>Phone Numbers</th>
+    </tr>
+      <% for i in (0...@hash.values.max.length) %>
+        <%= fields_for "customers[#{i}]" do |customer_fields| %>
+          <tr>
+            <td>
+              <%= customer_fields.fields_for :name do |f| %>
+                <% salutation, first_name, middle_name, last_name = @hash["name"][i].split(" ") %>
+                <table>
+                  <tr>
+                    <td><%= f.select :salutation, Customer::SALUTATIONS, {:selected => salutation } %></td>
+                  </tr>
+                  <tr>
+                    <td><%= f.text_field :first_name, {:placeholder => "First Name", :value => first_name} %></td>
+                  </tr>
+                  <tr>
+                    <td><%= f.text_field :middle_name, {:placeholder => "Middle Name", :value => middle_name} %></td>
+                  </tr>
+                  <tr>
+                    <td><%= f.text_field :last_name, { :placeholder => "Last Name", :value => last_name } %></td>
+                  </tr>
+                </table>
+              <% end %>
+            </td>
+            <td>
+              <%= customer_fields.fields_for :address do |f| %>
+                <% line1, line2, city, state, zip, country = @hash["address"][i].split(", ") %>
+                <table>
+                  <tr>
+                    <tr><td><%= f.text_field :line1, {:placeholder => "line1", :value => line1 } %></td></tr>
+                    <tr><td><%= f.text_field :line2, {:placeholder => "line2", :value => line2 } %></td></tr>
+                    <tr><td><%= f.text_field :city, {:placeholder => "city", :value => city } %></td></tr>
+                    <tr><td><%= f.text_field :state, {:placeholder => "state", :value => state } %></td></tr>
+                    <tr><td><%= f.text_field :zip, {:placeholder => "zip", :value => zip } %></td></tr>
+                    <tr><td><%= f.text_field :country, {:placeholder => "country", :value => country } %></td></tr>
+                  </tr>
+                </table>
+              <% end %>
+            </td>
+            <td>
+              <% @hash["emails"][i].split(", ").each_with_index do |email,index| %>
+                <%= customer_fields.fields_for "emails[#{index}]" do |f| %>
+                  <table>
+                    <tr>
+                      <td>
+                        <%= f.select "email_type", Email::TYPE, :prompt => "Select Email Type" %>
+                      </td>
+                      <td><%= f.email_field "address", { :placeholder => "Enter Email", :value => email }%></td></tr>
+                  </table>
+                <% end %>
+              <% end %>
+            </td>
+            <td>
+              <% @hash["phone numbers"][i].split(", ").each_with_index do |phone, index| %>
+                <%= customer_fields.fields_for "phone_numbers[#{index}]" do |f| %>
+                  <table>
+                    <tr>
+                      <td>
+                        <%= f.select "phone_type", PhoneNumber::TYPE, :prompt => "Select Phone Type" %>
+                      </td>
+                      <td><%= f.text_field "phone",{:placeholder => "Enter Phone Number", :value => phone } %></td></tr>
+                  </table>
+                <% end %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+  </table>
+  <%= submit_tag "Commit to Database" %>
+<% end %>
+
+
+params[:fields].reject! { |x| x.blank? }
+    file = params[:file]
+    begin
+      @hash = Customer.import(file, params[:fields])
+      flash[:notice] = "CSV Imported Successfully now edit the details so that we can save it in the database"
+    rescue => e
+      flash[:error] = "There was some error with your file or selection"
+      redirect_to request.referrer
+    end
+
+
+
+    def self.import(file, fields)
+    @hash = Hash.new(Array.new)
+    csv_data = CSV.read(file.path)
+    [fields, csv_data.transpose].transpose.each do |key, value|
+      @hash[key] = value
+    end
+    @hash
+  end

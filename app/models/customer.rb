@@ -18,6 +18,8 @@ class Customer < ActiveRecord::Base
 
   SALUTATIONS = {"Mr." => "Mr.", "Mrs." => "Mrs.", "Dr." => "Dr.", "Sir" => "Sir", "Ms." => "Ms."}
 
+  FIELDS = {"Name" => "name", "Emails" => "emails", "Phone Numbers" => "phone_numbers", "Address" => "address", "Special Note" => "special_note"}
+
   def name
     "#{salutation} #{first_name} #{middle_name} #{last_name}"
   end
@@ -28,11 +30,25 @@ class Customer < ActiveRecord::Base
 
   def as_json(options = {})
     super(
+      # :include => [:address => { :only => [:line1] }, :emails => { :only => [:address, :email_type] }, :phone_numbers => { :only => [:phone, :phone_type]}, :special_note => { :only => [:description]}],
       :include => [
         :address, :special_note, :emails, :phone_numbers
         ], 
       :methods => [:name],
-      :except => [:salutation, :first_name, :middle_name, :last_name, :updated_at, :created_at])
+      :except => [:updated_at, :created_at, :delta])
+  end
+
+  def self.import(file, fields)
+    @hash = Hash.new(Array.new)
+    csv_data = CSV.read(file.path)
+    # checking for the headers
+    if csv_data.first.collect{|x| x.parameterize("_")} == fields
+      csv_data.shift
+    end
+    [fields, csv_data.transpose].transpose.each do |key, value|
+      @hash[key] = value
+    end
+    @hash
   end
 
   define_index do 

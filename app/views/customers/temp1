@@ -1,0 +1,111 @@
+<%= form_tag(:controller => "customers", :action => "merge_and_save_contacts") do %>
+  <div class="merge-contacts">
+    <table class="table">
+      <tr>
+        <td>Salutation</td>
+        <td><%= check_box_tag "salutation[]", @customer1.salutation %></td>
+        <td><%= @customer1.salutation %></td>
+        <td><%= check_box_tag "salutation[]", @customer2.salutation %></td>
+        <td><%= @customer2.salutation %></td>
+      </tr>
+      <tr>
+        <td>First Name</td>
+        <td><%= check_box_tag "first_name[]", @customer1.first_name %></td>
+        <td><%= @customer1.first_name %></td>
+        <td><%= check_box_tag "first_name[]", @customer2.first_name %></td>
+        <td><%= @customer2.first_name %></td> 
+      </tr>
+      <tr>
+        <td>Middle Name</td>
+        <td><%= check_box_tag "middle_name[]", @customer1.middle_name %></td>
+        <td><%= @customer1.middle_name %></td>
+        <td><%= check_box_tag "middle_name[]", @customer2.middle_name %></td>
+        <td><%= @customer2.middle_name %></td>
+      </tr>
+      <tr>
+        <td>Last Name</td>
+        <td><%= check_box_tag "last_name[]", @customer1.last_name %></td>
+        <td><%= @customer1.last_name %></td>
+        <td><%= check_box_tag "last_name[]", @customer2.last_name %></td>
+        <td><%= @customer2.last_name %></td>
+      </tr>
+      <tr>
+        <td>Line 1</td>
+        <td><%= check_box_tag "line1[]", @customer1.address.line1 %></td>
+        <td><%= @customer1.address.line1 %></td>
+        <td><%= check_box_tag "line1[]", @customer2.address.line1 %></td>
+        <td><%= @customer2.address.line1 %></td>
+      </tr>
+      <tr>
+        <td>Line 2</td>
+        <td><%= check_box_tag "line2[]", @customer1.address.line2 %></td>
+        <td><%= @customer1.address.line2 %></td>
+        <td><%= check_box_tag "line2[]", @customer2.address.line2 %></td>
+        <td><%= @customer2.address.line2 %></td>
+      </tr>
+      <tr>
+        <td>City</td>
+        <td><%= check_box_tag "city[]", @customer1.address.city %></td>
+        <td><%= @customer1.address.city %></td>
+        <td><%= check_box_tag "city[]", @customer2.address.city %></td>
+        <td><%= @customer2.address.city %></td>
+      </tr>
+      <tr>
+        <td>State</td>
+        <td><%= check_box_tag "state[]", @customer1.address.state %></td>
+        <td><%= @customer1.address.state %></td>
+        <td><%= check_box_tag "state[]", @customer2.address.state %></td>
+        <td><%= @customer2.address.state %></td>
+      </tr>
+      <tr>
+        <td>Zip</td>
+        <td><%= check_box_tag "zip[]", @customer1.address.zip %></td>
+        <td><%= @customer1.address.zip %></td>
+        <td><%= check_box_tag "zip[]", @customer2.address.zip %></td>
+        <td><%= @customer2.address.zip %></td>
+      </tr>
+      <tr>
+        <td>Country</td>
+        <td><%= check_box_tag "country[]", @customer1.address.country %></td>
+        <td><%= @customer1.address.country %></td>
+        <td><%= check_box_tag "country[]", @customer2.address.country %></td>
+        <td><%= @customer2.address.country %></td>
+      </tr>
+      <tr>
+        <td>Emails</td>
+        <td><%= check_box_tag "emails[]", @customer1.emails %></td>
+        <td>
+          <% @customer1.emails.each do |email| %>
+            <%= email.email_type %> => <%= email.address %>
+            <br />
+          <% end %>
+        </td>
+        <td><%= check_box_tag "emails[]", @customer2.emails %></td>
+        <td>
+          <% @customer2.emails.each do |email| %>
+            <%= email.email_type %> => <%= email.address %>
+            <br />
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td>Phone Numbers</td>
+        <td><%= check_box_tag "phone_numbers[]", @customer1.phone_numbers %></td>
+        <td>
+          <% @customer1.phone_numbers.each do |phone| %>
+            <%= phone.phone_type %> => <%= phone.phone %>
+            <br />
+          <% end %>
+        </td>
+        <td><%= check_box_tag "phone_numbers[]", @customer2.phone_numbers %></td>
+        <td>
+          <% @customer2.phone_numbers.each do |phone| %>
+            <%= phone.phone_type %> => <%= phone.phone %>
+            <br />
+          <% end %>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <%= submit_tag "Merge Contacts" %>
+<% end %>

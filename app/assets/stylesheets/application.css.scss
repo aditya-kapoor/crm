@@ -33,6 +33,17 @@ div#notice {
   font-weight: bold;
 }
 
+div#alert {
+  width:50%;
+  background-color: beige;
+  border: 2px solid;
+  height: 35px;
+  text-align: center;
+  margin:auto;
+  color: black;
+  font-weight: bold;
+}
+
 div#error {
   color: black;
   font-weight: bold;
@@ -46,4 +57,13 @@ div#error {
 
 div.logged-in {
   float: right;
+  margin: 15px;
+}
+
+div#sign-in {
+  margin: 450px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  display: block;
+  padding: 10px;
 }

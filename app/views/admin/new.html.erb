@@ -1,0 +1,29 @@
+<%= form_for(@admin, :url => { :controller => "admin", :action => "create"}) do |post_form| %>
+  <% if @admin.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@admin.errors.count, "error") %> prohibited this post from being saved:</h2>
+      <ul>
+      <% @admin.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <table class="table new-admin">
+    <tr>
+      <td><%= post_form.label :username %></td>
+      <td><%= post_form.text_field :username %></td>
+    </tr>
+    <tr>
+      <td><%= post_form.label :password %></td>
+      <td><%= post_form.password_field :password %></td>
+    </tr>
+    <tr>
+      <td><%= post_form.label :password_confirmation %></td>
+      <td><%= post_form.password_field :password_confirmation %></td>
+    </tr> 
+    <tr>
+      <td><%= post_form.submit %></td>
+    </tr>
+  </table>
+<% end %>
